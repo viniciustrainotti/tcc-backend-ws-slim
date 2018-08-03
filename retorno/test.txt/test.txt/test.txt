@@ -1,0 +1,21 @@
+PING 192.168.1.5 (192.168.1.5) 56(84) bytes of data.
+64 bytes from 192.168.1.5: icmp_seq=1 ttl=128 time=1.75 ms
+64 bytes from 192.168.1.5: icmp_seq=2 ttl=128 time=2.75 ms
+64 bytes from 192.168.1.5: icmp_seq=3 ttl=128 time=1.76 ms
+64 bytes from 192.168.1.5: icmp_seq=4 ttl=128 time=1.75 ms
+64 bytes from 192.168.1.5: icmp_seq=5 ttl=128 time=1.88 ms
+64 bytes from 192.168.1.5: icmp_seq=6 ttl=128 time=1.94 ms
+64 bytes from 192.168.1.5: icmp_seq=7 ttl=128 time=1.61 ms
+64 bytes from 192.168.1.5: icmp_seq=8 ttl=128 time=1.81 ms
+
+--- 192.168.1.5 ping statistics ---
+8 packets transmitted, 8 received, 0% packet loss, time 7012ms
+rtt min/avg/max/mdev = 1.616/1.911/2.751/0.333 ms
+PING 192.168.1.5 (192.168.1.5) 56(84) bytes of data.
+From 192.168.1.2 icmp_seq=1 Destination Host Unreachable
+From 192.168.1.2 icmp_seq=2 Destination Host Unreachable
+From 192.168.1.2 icmp_seq=3 Destination Host Unreachable
+
+--- 192.168.1.5 ping statistics ---
+3 packets transmitted, 0 received, +3 errors, 100% packet loss, time 2103ms
+pipe 3
