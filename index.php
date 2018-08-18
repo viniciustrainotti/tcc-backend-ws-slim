@@ -384,6 +384,123 @@ $app->get('/enviar/servicos/{disp}/{nomearqpast}', function($req, $res, $args) {
 });
 
 
+$app->get('/dhcp_1/{disp}', function($req, $res, $args) {
+
+	require_once('dbconnect.php');
+
+	$disp = $req->getAttribute('disp');
+	
+		$teste = 0;
+    
+	$query = "SELECT DHCP_ip, DHCP_mascara, DHCP_gateway, DHCP_dns FROM dispositivos WHERE pvid = '$disp'";
+	$result = $mysqli->query($query);
+	
+	while($row = $result->fetch_assoc()){
+		$data[] = $row;	
+		$DHCP_ip = $row["DHCP_ip"];
+		$DHCP_mascara = $row["DHCP_mascara"];
+		$DHCP_gateway = $row["DHCP_gateway"];
+		$DHCP_dns = $row["DHCP_dns"];
+	}
+	
+	echo "address " . $DHCP_ip;
+	
+	//return $response;
+	
+});
+
+$app->get('/dhcp_2/{disp}', function($req, $res, $args) {
+
+	require_once('dbconnect.php');
+
+	$disp = $req->getAttribute('disp');
+	
+		$teste = 0;
+    
+	$query = "SELECT DHCP_ip, DHCP_mascara, DHCP_gateway, DHCP_dns FROM dispositivos WHERE pvid = '$disp'";
+	$result = $mysqli->query($query);
+	
+	while($row = $result->fetch_assoc()){
+		$data[] = $row;	
+		$DHCP_ip = $row["DHCP_ip"];
+		$DHCP_mascara = $row["DHCP_mascara"];
+		$DHCP_gateway = $row["DHCP_gateway"];
+		$DHCP_dns = $row["DHCP_dns"];
+	}
+	
+	echo "netmask ". $DHCP_mascara;
+	//return $response;
+	
+});
+
+$app->get('/dhcp_3/{disp}', function($req, $res, $args) {
+
+	require_once('dbconnect.php');
+
+	$disp = $req->getAttribute('disp');
+	
+		$teste = 0;
+    
+	$query = "SELECT DHCP_ip, DHCP_mascara, DHCP_gateway, DHCP_dns FROM dispositivos WHERE pvid = '$disp'";
+	$result = $mysqli->query($query);
+	
+	while($row = $result->fetch_assoc()){
+		$data[] = $row;	
+		$DHCP_ip = $row["DHCP_ip"];
+		$DHCP_mascara = $row["DHCP_mascara"];
+		$DHCP_gateway = $row["DHCP_gateway"];
+		$DHCP_dns = $row["DHCP_dns"];
+	}
+	
+	echo "gateway ". $DHCP_gateway;
+
+	
+	//return $response;
+	
+});
+
+$app->get('/dhcp_4/{disp}', function($req, $res, $args) {
+
+	require_once('dbconnect.php');
+
+	$disp = $req->getAttribute('disp');
+	
+		$teste = 0;
+    
+	$query = "SELECT DHCP_ip, DHCP_mascara, DHCP_gateway, DHCP_dns FROM dispositivos WHERE pvid = '$disp'";
+	$result = $mysqli->query($query);
+	
+	while($row = $result->fetch_assoc()){
+		$data[] = $row;	
+		$DHCP_ip = $row["DHCP_ip"];
+		$DHCP_mascara = $row["DHCP_mascara"];
+		$DHCP_gateway = $row["DHCP_gateway"];
+		$DHCP_dns = $row["DHCP_dns"];
+	}
+	
+	echo "nameserver ". $DHCP_dns;
+	
+	//return $response;
+	
+});
+
+
+$app->get('/dhcp_usou/{disp}', function($req, $res, $args) {
+
+	require_once('dbconnect.php');
+
+	$disp = $req->getAttribute('disp');
+	
+	$query = "UPDATE dispositivos SET usou_dhcp = '1' WHERE pvid = '$disp'";
+	$result1 = $mysqli->query($query);
+	
+	$response = "1";
+
+	return $response;
+	
+});
+
+
 $app->run();
 
 ?>
