@@ -484,8 +484,28 @@ $app->get('/dhcp_4/{disp}', function($req, $res, $args) {
 	
 });
 
+$app->get('/arp_conteudo/{disp}', function($req, $res, $args) {
 
-$app->get('/dhcp_usou/{disp}', function($req, $res, $args) {
+	require_once('dbconnect.php');
+
+	$disp = $req->getAttribute('disp');
+    
+	$query = "SELECT arp_conteudo FROM arp WHERE pvid = '$disp'";
+	$result = $mysqli->query($query);
+	
+	while($row = $result->fetch_assoc()){
+		$data[] = $row;	
+		$arp_conteudo = $row["arp_conteudo"];
+	}
+	
+	echo nl2br($arp_conteudo);
+	
+	//return $response;
+	
+});
+
+
+$app->get('/dhcp_status/{disp}', function($req, $res, $args) {
 
 	require_once('dbconnect.php');
 
