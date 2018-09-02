@@ -339,6 +339,36 @@ $app->get('/servicos/{disp}/{servico}/scripts', function($req, $res, $args) {
 
 	$teste = '0';
     
+	$query = "SELECT COUNT(*) AS qtdescript FROM arquivos_teste INNER JOIN servicos ON arquivos_teste.servico = servicos.nome_servico WHERE servico = 6 AND arquivos_teste.download = 'N' AND servico_disp = '1';";
+	$result = $mysqli->query($query);
+	
+	//echo $query;
+	
+	while($row = $result->fetch_assoc()){
+		$data[] = $row;	
+		$teste = $row["qtdescript"];
+	}
+
+	if($teste != '0'){
+		$response = $teste;
+	}else{
+		$response = "0";
+	}
+
+	return $response;
+	
+});
+
+$app->get('/servicos/{disp}/{servico}/namescripts', function($req, $res, $args) {
+
+	require_once('dbconnect.php');
+
+	$disp = $req->getAttribute('disp');
+	
+	$servico = $req->getAttribute('servico');
+
+	$teste = '0';
+    
 	$query = "SELECT script FROM arquivos_teste INNER JOIN servicos ON arquivos_teste.servico = servicos.nome_servico WHERE servico = 6 AND arquivos_teste.download = 'N' AND servico_disp = '1' LIMIT 1;";
 	$result = $mysqli->query($query);
 	
