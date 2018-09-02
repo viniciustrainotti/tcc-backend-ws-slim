@@ -505,16 +505,18 @@ $app->get('/arp_conteudo/{disp}', function($req, $res, $args) {
 });
 
 
-$app->get('/dhcp_status/{disp}', function($req, $res, $args) {
+$app->get('/dhcp_status/{disp}/{st}', function($req, $res, $args) {
 
 	require_once('dbconnect.php');
 
 	$disp = $req->getAttribute('disp');
 	
-	$query = "UPDATE dispositivos SET usou_dhcp = '1' WHERE pvid = '$disp'";
+	$st = $req->getAttribute('st');
+	
+	$query = "UPDATE dispositivos SET usou_dhcp = '$st' WHERE pvid = '$disp'";
 	$result1 = $mysqli->query($query);
 	
-	$response = "1";
+	$response = $query;
 
 	return $response;
 	
