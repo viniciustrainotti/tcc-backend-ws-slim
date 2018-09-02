@@ -339,23 +339,24 @@ $app->get('/servicos/{disp}/{servico}/scripts', function($req, $res, $args) {
 
 	$teste = '0';
     
-	$query = "SELECT COUNT(*) AS qtdescript FROM arquivos_teste INNER JOIN servicos ON arquivos_teste.servico = servicos.nome_servico WHERE servico = '$servico' AND arquivos_teste.download = 'N' AND servico_disp = '1';";
+	$query = "SELECT idarquivos_teste FROM arquivos_teste INNER JOIN servicos ON arquivos_teste.servico = servicos.nome_servico WHERE servico = '$servico' AND arquivos_teste.download = 'N' AND servico_disp = '1' GROUP BY idarquivos_teste;";
 	$result = $mysqli->query($query);
 	
 	//echo $query;
 	
 	while($row = $result->fetch_assoc()){
 		$data[] = $row;	
-		$teste = $row["qtdescript"];
+		//$teste = $row["idarquivos_teste"];
 	}
 
-	if($teste != '0'){
+	echo count($data);
+	/*if($teste != '0'){
 		$response = $teste;
 	}else{
 		$response = "0";
 	}
 
-	return $response;
+	return $response;*/
 	
 });
 
