@@ -520,6 +520,26 @@ $app->get('/dhcp_status/{disp}', function($req, $res, $args) {
 	
 });
 
+$app->post('/arp_rasp', function($req, $res, $args) use ($app){
+
+	$arp_rasp = $req->getParsedBody()['arp_comparacao'];
+	$arp_pvid = $req->getParsedBody()['arp_pvid'];
+	
+	//echo $arp_rasp;
+	//echo $arp_pvid;
+	
+	require_once('dbconnect.php');
+	
+	$query = "UPDATE arp SET arp_comparacao = '$arp_rasp' WHERE pvid = '$arp_pvid';";
+	$result1 = $mysqli->query($query);
+	
+	$response = "1";
+
+	return $response;
+	//$data = $req->getParsedBody();
+   // print_r($arp_rasp);
+
+});
 
 $app->run();
 
