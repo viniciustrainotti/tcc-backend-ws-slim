@@ -329,6 +329,101 @@ $app->get('/servicos/{disp}', function($req, $res, $args) {
 	
 });
 
+$app->get('/servicos/{disp}/{servico}/scripts', function($req, $res, $args) {
+
+	require_once('dbconnect.php');
+
+	$disp = $req->getAttribute('disp');
+	
+	$servico = $req->getAttribute('servico');
+
+	$teste = '0';
+    
+	$query = "SELECT script FROM arquivos_teste INNER JOIN servicos ON arquivos_teste.servico = servicos.nome_servico WHERE servico = 6 AND download = 'N' AND servico_disp = '1' LIMIT 1;";
+	$result = $mysqli->query($query);
+	
+	//echo $query;
+	
+	while($row = $result->fetch_assoc()){
+		$data[] = $row;	
+		$teste = $row["script"];
+	}
+
+	if($teste != '0'){
+		$response = $teste;
+	}else{
+		$response = "0";
+	}
+
+	return $response;
+	
+});
+
+$app->get('/servicos/{disp}/{servico}/{script}', function($req, $res, $args) {
+
+	require_once('dbconnect.php');
+
+	$disp = $req->getAttribute('disp');
+	
+	$servico = $req->getAttribute('servico');
+	
+	$script = $req->getAttribute('script');
+
+	$teste = '0';
+    
+	$query = "SELECT arquivo_final FROM arquivos_teste INNER JOIN servicos ON arquivos_teste.servico = servicos.nome_servico WHERE servico = 6 AND download = 'N' AND servico_disp = '1' LIMIT 1;";
+	$result = $mysqli->query($query);
+	
+	//echo $query;
+	
+	while($row = $result->fetch_assoc()){
+		$data[] = $row;	
+		$teste = $row["arquivo_final"];
+	}
+
+	if($teste != '0'){
+		$response = $teste;
+	}else{
+		$response = "0";
+	}
+
+	return $response;
+	
+});
+
+$app->get('/servicos/{disp}/{servico}/{script}/disable', function($req, $res, $args) {
+
+	require_once('dbconnect.php');
+
+	$servico = $req->getAttribute('servico');
+	
+	$script = $req->getAttribute('script');
+    
+	$query = "UPDATE arquivos_teste SET download = 'S' WHERE servico ='$servico' AND script ='$script'";
+	$result1 = $mysqli->query($query);
+	
+	$response = "1";
+
+	return $response;
+	
+});
+
+
+$app->get('/servicos/{disp}/{servico}/disable/download', function($req, $res, $args) {
+
+	require_once('dbconnect.php');
+
+	$servico = $req->getAttribute('servico');
+    
+	$query = "UPDATE servicos SET download = 'S' WHERE nome_servico ='$servico'";
+	$result1 = $mysqli->query($query);
+	
+	$response = "1";
+
+	return $response;
+	
+});
+
 $app->get('/servicos_qt/{disp}', function($req, $res, $args) {
 
 	require_once('dbconnect.php');
