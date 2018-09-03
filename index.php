@@ -429,6 +429,8 @@ $app->get('/servicos/{disp}/{servico}/{script}/disable', function($req, $res, $a
 	$servico = $req->getAttribute('servico');
 	
 	$script = $req->getAttribute('script');
+	
+	$disp = $req->getAttribute('disp');
     
 	$query = "UPDATE arquivos_teste SET download = 'S' WHERE servico ='$servico' AND script ='$script' AND dispositivo = '$disp'";
 	$result1 = $mysqli->query($query);
