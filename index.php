@@ -373,7 +373,7 @@ $app->get('/servicos/{disp}/{servico}/namescripts/name', function($req, $res, $a
 	$query = "SELECT script FROM arquivos_teste INNER JOIN servicos ON arquivos_teste.servico = servicos.nome_servico WHERE servico = '$servico' AND arquivos_teste.download = 'N' AND servico_disp = '1' LIMIT 1;";
 	$result = $mysqli->query($query);
 	
-	echo $query . "\n";
+	//echo $query . "\n";
 	
 	while($row = $result->fetch_assoc()){
 		$data[] = $row;	
@@ -405,7 +405,7 @@ $app->get('/servicos/{disp}/{servico}/{script}', function($req, $res, $args) {
 	$query = "SELECT arquivo_final FROM arquivos_teste INNER JOIN servicos ON arquivos_teste.servico = servicos.nome_servico WHERE servico = '$servico' AND arquivos_teste.script = '$script' AND arquivos_teste.download = 'N' AND servico_disp = '1' LIMIT 1;";
 	$result = $mysqli->query($query);
 	
-	//echo $query;
+	echo $query;
 	
 	while($row = $result->fetch_assoc()){
 		$data[] = $row;	
