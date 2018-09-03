@@ -402,7 +402,7 @@ $app->get('/servicos/{disp}/{servico}/{script}', function($req, $res, $args) {
 
 	$teste = '0';
     
-	$query = "SELECT arquivo_final FROM arquivos_teste WHERE servico = '$servico' AND script = '$script' LIMIT 1;";
+	$query = "SELECT arquivo_final FROM arquivos_teste WHERE servico = '$servico' AND script = '$script' AND download = 'N' AND dispositivo = '$disp' LIMIT 1;";
 	$result = $mysqli->query($query);
 	
 	echo $query;
