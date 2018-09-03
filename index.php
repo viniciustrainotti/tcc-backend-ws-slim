@@ -405,7 +405,7 @@ $app->get('/servicos/{disp}/{servico}/{script}', function($req, $res, $args) {
 	$query = "SELECT arquivo_final FROM arquivos_teste WHERE servico = '$servico' AND script = '$script' AND download = 'N' AND dispositivo = '$disp' LIMIT 1;";
 	$result = $mysqli->query($query);
 	
-	echo $query;
+	//echo $query;
 	
 	while($row = $result->fetch_assoc()){
 		$data[] = $row;	
@@ -430,7 +430,7 @@ $app->get('/servicos/{disp}/{servico}/{script}/disable', function($req, $res, $a
 	
 	$script = $req->getAttribute('script');
     
-	$query = "UPDATE arquivos_teste SET download = 'S' WHERE servico ='$servico' AND script ='$script'";
+	$query = "UPDATE arquivos_teste SET download = 'S' WHERE servico ='$servico' AND script ='$script' AND dispositivo = '$disp'";
 	$result1 = $mysqli->query($query);
 	
 	$response = "1";
