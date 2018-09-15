@@ -674,6 +674,74 @@ $app->post('/arp_rasp', function($req, $res, $args) use ($app){
 
 });
 
+$app->get('/thread_max_dispositivo/{disp}', function($req, $res, $args) {
+
+	require_once('dbconnect.php');
+
+	$disp = $req->getAttribute('disp');
+	
+	$query = "SELECT thread_max FROM dispositivos WHERE pvid = '$disp'";
+	$result = $mysqli->query($query);
+	
+	while($row = $result->fetch_assoc()){
+		$data[] = $row;	
+		$thread_max = $row["thread_max"];
+	}
+	
+	echo $thread_max;
+	
+});
+
+$app->get('/thread_dispositivo/{disp}/{inc}', function($req, $res, $args) {
+
+	require_once('dbconnect.php');
+
+	$disp = $req->getAttribute('disp');
+	
+	$inc = $req->getAttribute('inc');
+	
+	if($inc == 1){
+	
+		$query = "SELECT thread_disp FROM dispositivos WHERE pvid = '$disp'";
+		$result = $mysqli->query($query);
+		
+		while($row = $result->fetch_assoc()){
+			$data[] = $row;	
+			$thread_disp = $row["thread_disp"];
+		}
+		
+		$thread_disp = $thread_disp + 1;
+		
+		//echo "valor novo da thread disp" . $thread_disp;
+		
+		$query = "UPDATE dispositivos SET thread_disp = '$thread_disp' WHERE pvid = '$disp'";
+		$result1 = $mysqli->query($query);
+		
+		//$response = "Novo Valor de Thread disponivel " . $thread_disp;
+		//echo $thread_disp;
+	
+	}else{
+	
+		echo "valor do inc" . $inc;
+	}
+
+	echo $thread_disp;
+	
+});
+
+$app->get('/thread_dispositivo_reset/{disp}', function($req, $res, $args) {
+
+	require_once('dbconnect.php');
+
+	$disp = $req->getAttribute('disp');
+	
+	$query = "UPDATE dispositivos SET thread_disp = '1' WHERE pvid = '$disp'";
+	$result = $mysqli->query($query);
+	
+	echo "1";
+	
+});
+
 $app->run();
 
 ?>
