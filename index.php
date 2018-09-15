@@ -729,6 +729,25 @@ $app->get('/thread_dispositivo/{disp}/{inc}', function($req, $res, $args) {
 	
 });
 
+$app->get('/thread_dispositivo_consulta/{disp}', function($req, $res, $args) {
+
+	require_once('dbconnect.php');
+
+	$disp = $req->getAttribute('disp');
+	
+	$query = "SELECT thread_disp FROM dispositivos WHERE pvid = '$disp'";
+	$result = $mysqli->query($query);
+	
+	while($row = $result->fetch_assoc()){
+		$data[] = $row;	
+		$thread_disp = $row["thread_disp"];
+	}
+
+	echo $thread_disp;
+	
+});
+
+
 $app->get('/thread_dispositivo_reset/{disp}', function($req, $res, $args) {
 
 	require_once('dbconnect.php');
@@ -793,7 +812,7 @@ $app->get('/thread_dispositivo_comunica/{disp}/{inc}', function($req, $res, $arg
 		echo "valor do inc" . $inc;
 	}
 
-	echo $thread_disp;
+	echo $thread_comunica_disp;
 	
 });
 
@@ -807,6 +826,24 @@ $app->get('/thread_dispositivo_reset_comunica/{disp}', function($req, $res, $arg
 	$result = $mysqli->query($query);
 	
 	echo "1";
+	
+});
+
+$app->get('/thread_dispositivo_consulta_comunica/{disp}', function($req, $res, $args) {
+
+	require_once('dbconnect.php');
+
+	$disp = $req->getAttribute('disp');
+	
+	$query = "SELECT thread_comunica_disp FROM dispositivos WHERE pvid = '$disp'";
+	$result = $mysqli->query($query);
+	
+	while($row = $result->fetch_assoc()){
+		$data[] = $row;	
+		$thread_comunica_disp = $row["thread_comunica_disp"];
+	}
+
+	echo $thread_comunica_disp;
 	
 });
 
