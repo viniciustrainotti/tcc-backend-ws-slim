@@ -742,6 +742,74 @@ $app->get('/thread_dispositivo_reset/{disp}', function($req, $res, $args) {
 	
 });
 
+$app->get('/thread_max_dispositivo_comunica/{disp}', function($req, $res, $args) {
+
+	require_once('dbconnect.php');
+
+	$disp = $req->getAttribute('disp');
+	
+	$query = "SELECT thread_comunica_max FROM dispositivos WHERE pvid = '$disp'";
+	$result = $mysqli->query($query);
+	
+	while($row = $result->fetch_assoc()){
+		$data[] = $row;	
+		$thread_comunica_max = $row["thread_comunica_max"];
+	}
+	
+	echo $thread_comunica_max;
+	
+});
+
+$app->get('/thread_dispositivo_comunica/{disp}/{inc}', function($req, $res, $args) {
+
+	require_once('dbconnect.php');
+
+	$disp = $req->getAttribute('disp');
+	
+	$inc = $req->getAttribute('inc');
+	
+	if($inc == 1){
+	
+		$query = "SELECT thread_comunica_disp FROM dispositivos WHERE pvid = '$disp'";
+		$result = $mysqli->query($query);
+		
+		while($row = $result->fetch_assoc()){
+			$data[] = $row;	
+			$thread_comunica_disp = $row["thread_comunica_disp"];
+		}
+		
+		$thread_comunica_disp = $thread_comunica_disp + 1;
+		
+		//echo "valor novo da thread disp" . $thread_comunica_disp;
+		
+		$query = "UPDATE dispositivos SET thread_comunica_disp = '$thread_comunica_disp' WHERE pvid = '$disp'";
+		$result1 = $mysqli->query($query);
+		
+		//$response = "Novo Valor de Thread disponivel " . $thread_disp;
+		//echo $thread_disp;
+	
+	}else{
+	
+		echo "valor do inc" . $inc;
+	}
+
+	echo $thread_disp;
+	
+});
+
+$app->get('/thread_dispositivo_reset_comunica/{disp}', function($req, $res, $args) {
+
+	require_once('dbconnect.php');
+
+	$disp = $req->getAttribute('disp');
+	
+	$query = "UPDATE dispositivos SET thread_comunica_disp = '1' WHERE pvid = '$disp'";
+	$result = $mysqli->query($query);
+	
+	echo "1";
+	
+});
+
 $app->run();
 
 ?>

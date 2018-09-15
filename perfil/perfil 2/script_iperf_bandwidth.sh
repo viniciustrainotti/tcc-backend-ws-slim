@@ -1,1 +1,0 @@
-iperf3 -c $ip -t $tempo >> $retorno
