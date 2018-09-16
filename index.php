@@ -265,7 +265,7 @@ $app->get('/download/servicos/{disp}/{nomearqpast}/{nomearq}', function($req, $r
 	$nomearq = $req->getAttribute('nomearq');
     
 	//$query = "UPDATE servicos SET download = 'S' WHERE nome_servico ='$nomearqpast' AND perfil ='$perfil' AND dispositivo ='$disp'";
-	$query = "UPDATE servicos SET download = 'S' WHERE nome_servico ='$nomearqpast' AND dispositivo ='$disp'";
+	$query = "UPDATE servicos SET download = 'S', servico_disp = '0' WHERE nome_servico ='$nomearqpast' AND dispositivo ='$disp'";
 	$result1 = $mysqli->query($query);
 	
 	echo $query;
