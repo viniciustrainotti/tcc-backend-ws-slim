@@ -432,7 +432,7 @@ $app->get('/servicos/{disp}/{servico}/{script}/disable', function($req, $res, $a
 	
 	$disp = $req->getAttribute('disp');
     
-	$query = "UPDATE arquivos_teste SET download = 'S', servico_disp = 0 WHERE servico ='$servico' AND script ='$script' AND dispositivo = '$disp'";
+	$query = "UPDATE arquivos_teste SET download = 'S' WHERE servico ='$servico' AND script ='$script' AND dispositivo = '$disp'";
 	$result1 = $mysqli->query($query);
 	
 	//echo $query;
@@ -450,7 +450,7 @@ $app->get('/servicos/{disp}/{servico}/disable/download', function($req, $res, $a
 
 	$servico = $req->getAttribute('servico');
     
-	$query = "UPDATE servicos SET download = 'S' WHERE nome_servico ='$servico'";
+	$query = "UPDATE servicos SET download = 'S', servico_disp = 0 WHERE nome_servico ='$servico'";
 	$result1 = $mysqli->query($query);
 	
 	$response = "1";
