@@ -75,7 +75,7 @@ $app->get('/all/{pvid}',function($request) use ($app){
 	
 });
 
-//atualiza o device para conectado
+//atualiza o device para conectado, adicionar usuario e senha adicionar 
 $app->get('/all/at/{atualiza}',function($request) use ($app){
 
 	require_once('dbconnect.php');
@@ -664,6 +664,27 @@ $app->post('/arp_rasp', function($req, $res, $args) use ($app){
 	require_once('dbconnect.php');
 	
 	$query = "UPDATE arp SET arp_comparacao = '$arp_rasp' WHERE pvid = '$arp_pvid';";
+	$result1 = $mysqli->query($query);
+	
+	$response = "1";
+
+	return $response;
+	//$data = $req->getParsedBody();
+   // print_r($arp_rasp);
+
+});
+
+$app->post('/route_rasp', function($req, $res, $args) use ($app){
+
+	$route_comparacao = $req->getParsedBody()['route_comparacao'];
+	$route_pvid = $req->getParsedBody()['route_pvid'];
+	
+	//echo $arp_rasp;
+	//echo $arp_pvid;
+	
+	require_once('dbconnect.php');
+	
+	$query = "UPDATE route SET route_enviado = '$route_comparacao' WHERE pvid = '$route_pvid';";
 	$result1 = $mysqli->query($query);
 	
 	$response = "1";
