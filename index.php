@@ -76,17 +76,21 @@ $app->get('/all/{pvid}',function($request) use ($app){
 });
 
 //atualiza o device para conectado, adicionar usuario e senha adicionar 
-$app->get('/all/at/{atualiza}',function($request) use ($app){
+$app->get('/all/at/{atualiza}/{user}/{pass}',function($request) use ($app){
 
 	require_once('dbconnect.php');
 	
 	$pvid = $request->getAttribute('atualiza');
+	$user = $request->getAttribute('user');
+	$pass = $request->getAttribute('pass');
 	
 	/*$query = "SELECT * FROM dispositivos WHERE pvid =$pvid order by iddispositivo";
 	$result = $mysqli->query($query);*/
 	
-	$query1 = "UPDATE dispositivos SET conectado = '1' WHERE pvid =$pvid";
+	$query1 = "UPDATE dispositivos SET conectado = '1' WHERE pvid = '$pvid' AND user = '$user' AND senha = '$pass'";
 	$result1 = $mysqli->query($query1);
+	
+	//echo $query1;
 	
 	$response = "1";
 
