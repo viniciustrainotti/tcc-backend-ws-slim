@@ -23,6 +23,8 @@ $app->get('/all',function() use ($app){
 	//$response->json_encode($data);
 	//return $response;
 	
+	$mysqli->close();
+	
 	echo json_encode($data);
 	
 });
@@ -70,6 +72,8 @@ $app->get('/all/{pvid}',function($request) use ($app){
 		$response = "0";
 	}
 	
+	$mysqli->close();
+	
 	//echo $response;
 	return $response;
 	
@@ -93,6 +97,8 @@ $app->get('/all/at/{atualiza}/{user}/{pass}',function($request) use ($app){
 	//echo $query1;
 	
 	$response = "1";
+	
+	$mysqli->close();
 
 	return $response;
 
@@ -125,6 +131,8 @@ $app->get('/all/st/{status}',function($request) use ($app){
 	}else{
 		$response = "0";
 	}
+	
+	$mysqli->close();
 	
 	//echo $response;
 	return $response;
@@ -161,6 +169,8 @@ $app->get('/all/sv/{pvid}',function($request) use ($app){
 		$response = "0";
 	}
 	
+	$mysqli->close();
+	
 	//echo $response;
 	return $response;
 	
@@ -179,6 +189,8 @@ $app->get('/all/svend/{atualiza}',function($request) use ($app){
 	$result1 = $mysqli->query($query1);
 	
 	$response = "1";
+	
+	$mysqli->close();
 
 	return $response;
 
@@ -273,6 +285,8 @@ $app->get('/download/servicos/{disp}/{nomearqpast}/{nomearq}', function($req, $r
 	$result1 = $mysqli->query($query);
 	
 	echo $query;
+	
+	$mysqli->close();
 
 	//C:\wamp\www\slimtest\servicos\10\perfil1\1
 	
@@ -328,6 +342,8 @@ $app->get('/servicos/{disp}', function($req, $res, $args) {
 		$response = "0";
 	}
 	
+	$mysqli->close();
+	
 	//echo $response;
 	return $response;
 	
@@ -354,12 +370,14 @@ $app->get('/servicos/{disp}/{servico}/scripts', function($req, $res, $args) {
 	}
 
 	echo count($data);
+	
+	$mysqli->close();
 	/*if($teste != '0'){
 		$response = $teste;
 	}else{
 		$response = "0";
 	}
-
+	
 	return $response;*/
 	
 });
@@ -390,6 +408,8 @@ $app->get('/servicos/{disp}/{servico}/namescripts/name', function($req, $res, $a
 		$response = "0";
 	}
 
+	$mysqli->close();
+	
 	return $response;
 	
 });
@@ -422,6 +442,8 @@ $app->get('/servicos/{disp}/{servico}/{script}', function($req, $res, $args) {
 		$response = "0";
 	}
 
+	$mysqli->close();
+	
 	return $response;
 	
 });
@@ -442,6 +464,8 @@ $app->get('/servicos/{disp}/{servico}/{script}/disable', function($req, $res, $a
 	//echo $query;
 	
 	$response = "1";
+	
+	$mysqli->close();
 
 	return $response;
 	
@@ -458,6 +482,8 @@ $app->get('/servicos/{disp}/{servico}/disable/download', function($req, $res, $a
 	$result1 = $mysqli->query($query);
 	
 	$response = "1";
+	
+	$mysqli->close();
 
 	return $response;
 	
@@ -481,6 +507,8 @@ $app->get('/servicos_qt/{disp}', function($req, $res, $args) {
 		//$teste = $row["nome_servico"];
 	}
 	echo count($data);
+	
+	$mysqli->close();
 	/*$teste = count($data);
 	//echo $teste;	
 	//echo json_encode($data);
@@ -513,6 +541,8 @@ $app->get('/enviar/servicos/{disp}/{nomearqpast}', function($req, $res, $args) {
 	$result1 = $mysqli->query($query);
 	
 	$response = "1";
+	
+	$mysqli->close();
 
 	return $response;
 	
@@ -540,6 +570,8 @@ $app->get('/dhcp_1/{disp}', function($req, $res, $args) {
 	
 	echo "address " . $DHCP_ip;
 	
+	$mysqli->close();
+	
 	//return $response;
 	
 });
@@ -564,6 +596,8 @@ $app->get('/dhcp_2/{disp}', function($req, $res, $args) {
 	}
 	
 	echo "netmask ". $DHCP_mascara;
+	
+	$mysqli->close();
 	//return $response;
 	
 });
@@ -589,7 +623,7 @@ $app->get('/dhcp_3/{disp}', function($req, $res, $args) {
 	
 	echo "gateway ". $DHCP_gateway;
 
-	
+	$mysqli->close();
 	//return $response;
 	
 });
@@ -615,6 +649,8 @@ $app->get('/dhcp_4/{disp}', function($req, $res, $args) {
 	
 	echo "nameserver ". $DHCP_dns;
 	
+	$mysqli->close();
+	
 	//return $response;
 	
 });
@@ -635,6 +671,8 @@ $app->get('/arp_conteudo/{disp}', function($req, $res, $args) {
 	
 	echo nl2br($arp_conteudo);
 	
+	$mysqli->close();
+	
 	//return $response;
 	
 });
@@ -651,8 +689,25 @@ $app->get('/dhcp_status/{disp}/{st}', function($req, $res, $args) {
 	$query = "UPDATE dispositivos SET usou_dhcp = '$st' WHERE pvid = '$disp'";
 	$result1 = $mysqli->query($query);
 	
-	$response = $query;
-
+	if($st == '1'){
+	
+		$st = '0';
+		
+	}else{
+	
+		$st = '1';
+		
+	}
+	
+	$query1 = "INSERT INTO dhcp_health (dispositivo, valor, date) VALUES ('$disp', '$st', NOW());";
+	$result10 = $mysqli->query($query1);
+	
+	$response = $query . " " . $query1;
+	
+	//mysqli_free_result($result10);
+	
+	$mysqli->close();
+	
 	return $response;
 	
 });
@@ -672,6 +727,8 @@ $app->post('/arp_rasp', function($req, $res, $args) use ($app){
 	
 	$response = "1";
 
+	$mysqli->close();
+	
 	return $response;
 	//$data = $req->getParsedBody();
    // print_r($arp_rasp);
@@ -693,6 +750,8 @@ $app->post('/route_rasp', function($req, $res, $args) use ($app){
 	
 	$response = "1";
 
+	$mysqli->close();
+	
 	return $response;
 	//$data = $req->getParsedBody();
    // print_r($arp_rasp);
@@ -712,6 +771,8 @@ $app->get('/thread_max_dispositivo/{disp}', function($req, $res, $args) {
 		$data[] = $row;	
 		$thread_max = $row["thread_max"];
 	}
+	
+	$mysqli->close();
 	
 	echo $thread_max;
 	
@@ -752,6 +813,8 @@ $app->get('/thread_dispositivo/{disp}/{inc}', function($req, $res, $args) {
 
 	echo $thread_disp;
 	
+	$mysqli->close();
+	
 });
 
 $app->get('/thread_dispositivo_consulta/{disp}', function($req, $res, $args) {
@@ -770,6 +833,8 @@ $app->get('/thread_dispositivo_consulta/{disp}', function($req, $res, $args) {
 
 	echo $thread_disp;
 	
+	$mysqli->close();
+	
 });
 
 
@@ -783,6 +848,8 @@ $app->get('/thread_dispositivo_reset/{disp}', function($req, $res, $args) {
 	$result = $mysqli->query($query);
 	
 	echo "1";
+	
+	$mysqli->close();
 	
 });
 
@@ -801,6 +868,8 @@ $app->get('/thread_max_dispositivo_comunica/{disp}', function($req, $res, $args)
 	}
 	
 	echo $thread_comunica_max;
+	
+	$mysqli->close();
 	
 });
 
@@ -839,6 +908,8 @@ $app->get('/thread_dispositivo_comunica/{disp}/{inc}', function($req, $res, $arg
 
 	echo $thread_comunica_disp;
 	
+	$mysqli->close();
+	
 });
 
 $app->get('/thread_dispositivo_reset_comunica/{disp}', function($req, $res, $args) {
@@ -851,6 +922,8 @@ $app->get('/thread_dispositivo_reset_comunica/{disp}', function($req, $res, $arg
 	$result = $mysqli->query($query);
 	
 	echo "1";
+	
+	$mysqli->close();
 	
 });
 
@@ -869,6 +942,8 @@ $app->get('/thread_dispositivo_consulta_comunica/{disp}', function($req, $res, $
 	}
 
 	echo $thread_comunica_disp;
+	
+	$mysqli->close();
 	
 });
 

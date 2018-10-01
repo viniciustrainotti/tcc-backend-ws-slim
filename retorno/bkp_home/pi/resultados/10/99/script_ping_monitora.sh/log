@@ -1,0 +1,15 @@
+PING 192.168.100.43 (192.168.100.43) 56(84) bytes of data.
+64 bytes from 192.168.100.43: icmp_seq=1 ttl=127 time=2.05 ms
+64 bytes from 192.168.100.43: icmp_seq=2 ttl=127 time=2.28 ms
+64 bytes from 192.168.100.43: icmp_seq=3 ttl=127 time=8.22 ms
+64 bytes from 192.168.100.43: icmp_seq=4 ttl=127 time=2.47 ms
+64 bytes from 192.168.100.43: icmp_seq=5 ttl=127 time=2.07 ms
+64 bytes from 192.168.100.43: icmp_seq=6 ttl=127 time=2.15 ms
+64 bytes from 192.168.100.43: icmp_seq=7 ttl=127 time=2.19 ms
+64 bytes from 192.168.100.43: icmp_seq=8 ttl=127 time=2.05 ms
+64 bytes from 192.168.100.43: icmp_seq=9 ttl=127 time=2.07 ms
+64 bytes from 192.168.100.43: icmp_seq=10 ttl=127 time=2.25 ms
+
+--- 192.168.100.43 ping statistics ---
+10 packets transmitted, 10 received, 0% packet loss, time 9011ms
+rtt min/avg/max/mdev = 2.058/2.785/8.224/1.818 ms
